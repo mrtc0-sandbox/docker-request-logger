@@ -1,7 +1,6 @@
 package main
 
 import (
-	structs "github.com/fatih/structs"
 	"github.com/docker/go-plugins-helpers/authorization"
 	"github.com/sirupsen/logrus"
 )
@@ -11,7 +10,14 @@ type AuthZPlugin struct {
 }
 
 func (p AuthZPlugin) AuthZReq(r authorization.Request) authorization.Response {
-	p.Logger.WithFields(structs.Map(r)).Info("Request received")
+	p.Logger.WithFields(logrus.Fields{
+		"user": r.User,
+		"user_authn_method": r.UserAuthNMethod,
+		"request_method": r.RequestMethod,
+		"request_uri": r.RequestURI,
+		"request_body": string(r.RequestBody),
+		"request_headers": r.RequestHeaders,
+	}).Info("Request received")
 	return authorization.Response{Allow: true}
 }
 
