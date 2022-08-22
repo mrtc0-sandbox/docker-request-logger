@@ -1,0 +1,17 @@
+{
+    "description": "A request logger for Docker API",
+    "documentation": "https://github.com/mrtc0-sandbox/docker-request-logger",
+    "entrypoint": [
+        "/docker-request-logger"
+    ],
+    "interface": {
+        "socket": "request-logger.sock",
+        "types": ["docker.authz/1.0"]
+    },
+    "network": {
+        "type": "host"
+    },
+    "linux": {
+      "capabilities": ["CAP_SYS_ADMIN"]
+    }
+}
